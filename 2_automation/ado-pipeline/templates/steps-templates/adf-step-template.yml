@@ -29,7 +29,7 @@ parameters:
 steps:        
 # Validate ARM Template
 - task: AzureResourceManagerTemplateDeployment@3
-  name: data_factory_deployment
+  name: data_factory_deployment_validation
   displayName: Deploy data factory
   enabled: true
   continueOnError: false
@@ -50,8 +50,8 @@ steps:
 
 # Increment ARM Template
 - task: AzureResourceManagerTemplateDeployment@3
-  name: data_factory_001_deployment
-  displayName: Deploy data factory 001
+  name: data_factory_deployment
+  displayName: Deploy data factory
   enabled: false
   continueOnError: false
   inputs:
