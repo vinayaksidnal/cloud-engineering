@@ -1,0 +1,85 @@
+# Template for validating and incrementing a VNET ARM template.
+
+parameters:
+  - name: 'azureResourceManagerConnection'
+    displayName: 'The ADO Service Connection to use.'
+    type: string
+    default: ''
+  - name: 'subscriptionId'
+    displayName: 'The subscription ID to use.'
+    type: string
+    default: ''
+  - name: 'location'
+    displayName: 'The azure region to deploy resources to.'
+    type: string
+    default: ''
+  - name: 'resourceGroupName'
+    displayName: 'The name of the Resource Group to deploy to.'
+    type: string
+    default: ''
+  - name: 'vnetName'
+    displayName: 'The name of the Resource Group to deploy to.'
+    type: string
+    default: 'cloud-eng-01-vnet'
+  - name: 'vnetAddressPrefix'
+    displayName: 'The name of the Resource Group to deploy to.'
+    type: string
+    default: '10.1.0.0/16'
+  - name: 'subnetName'
+    displayName: 'The name of the Resource Group to deploy to.'
+    type: string
+    default: 'cloud-eng-01-sub'
+  - name: 'subnetAddressPrefix'
+    displayName: 'The name of the Resource Group to deploy to.'
+    type: string
+    default: '10.1.0.0/24'
+  - name: 'overrideParameters'
+    displayName: 'sharedResourceGroupName'
+    type: string
+    default: ''
+
+steps:        
+# Validate ARM Template
+- task: AzureResourceManagerTemplateDeployment@3
+  name: vnet_deployment_validation
+  displayName: VNET validation
+  enabled: true
+  continueOnError: false
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection}}
+    subscriptionId: ${{ parameters.subscriptionId}}
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: ${{ parameters.resourceGroupName}}
+    location: ${{ parameters.location}}
+    templateLocation: 'Linked artifact'
+    csmFile: '1_infrastructure/arm-templates/vnet/azuredeploy.json'
+    deploymentMode: 'Validation'
+    overrideParameters: >
+      -vnetName "${{ parameters.vnetName}}"
+      -vnetAddressPrefix "${{ parameters.vnetAddressPrefix}}"
+      -subnetName "${{ parameters.subnetName}}"
+      -subnetAddressPrefix "${{ parameters.subnetAddressPrefix}}"
+
+# Increment ARM Template
+- task: AzureResourceManagerTemplateDeployment@3
+  name: vnet_deployment_deployment
+  displayName: VNET deployment
+  enabled: true
+  continueOnError: false
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection}}
+    subscriptionId: ${{ parameters.subscriptionId}}
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: ${{ parameters.resourceGroupName}}
+    location: ${{ parameters.location}}
+    templateLocation: 'Linked artifact'
+    csmFile: '1_infrastructure/arm-templates/vnet/azuredeploy.json'
+    deploymentMode: 'Incremental'
+    overrideParameters: >
+      -vnetName "${{ parameters.vnetName}}"
+      -vnetAddressPrefix "${{ parameters.vnetAddressPrefix}}"
+      -subnetName "${{ parameters.subnetName}}"
+      -subnetAddressPrefix "${{ parameters.subnetAddressPrefix}}"
+  
