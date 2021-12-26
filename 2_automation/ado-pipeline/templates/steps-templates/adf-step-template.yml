@@ -43,9 +43,6 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'vinayaksidnal/cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.json'
     deploymentMode: 'Validation'
-    overrideParameters: >
-      -location "${{ parameters.location}}"
-      -dataFactoryName "${{ parameters.dataFactoryName}}"
 
 # Increment ARM Template
 - task: AzureResourceManagerTemplateDeployment@3
@@ -63,6 +60,4 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'vinayaksidnal/cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.json'
     deploymentMode: 'Incremental'
-    overrideParameters: >
-      -location "${{ parameters.location}}"
-      -dataFactoryName "${{ parameters.dataFactoryName}}"
+  
