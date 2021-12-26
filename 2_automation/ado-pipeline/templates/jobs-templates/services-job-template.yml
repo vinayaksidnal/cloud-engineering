@@ -1,0 +1,30 @@
+# Provisions all cloud engineering resources needed.
+
+parameters:
+  - name: 'azureResourceManagerConnection'
+    displayName: 'The ADO Service Connection to use.'
+    type: string
+    default: ''
+  - name: 'subscriptionId'
+    displayName: 'The subscription ID to use.'
+    type: string
+    default: ''
+  - name: 'location'
+    displayName: 'The azure region to deploy resources to.'
+    type: string
+    default: ''
+  - name: 'resourceGroupName'
+    displayName: 'The name of the Resource Group to deploy to.'
+    type: string
+    default: ''
+  
+jobs:
+- job: deploy_Azure_Services
+  steps:
+  # 1. DataFactory Service Deployment.
+  - template: ../steps-templates/adf-step-template.yml
+    parameters:
+      azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection }}
+      subscriptionId: ${{ parameters.subscriptionId }}
+      resourceGroupName: ${{ parameters.resourceGroupName}}
+      location: ${{ parameters.location }}

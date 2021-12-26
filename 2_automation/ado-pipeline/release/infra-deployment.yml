@@ -1,0 +1,18 @@
+# Infrastructure deployment
+
+trigger: none
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - group: cloud-eng
+
+stages:
+- stage: services_deployment
+  jobs:
+  - template: ../templates/jobs-templates/services-job-template.yml
+    parameters:
+      azureResourceManagerConnection: $(serviceConnectionName)
+      subscriptionId: $(subscriptionId)
+      location: $(location)
+      resourceGroupName: $(resourceGroupName)
