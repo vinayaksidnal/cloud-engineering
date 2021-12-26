@@ -29,8 +29,8 @@ parameters:
 steps:        
 # Validate ARM Template
 - task: AzureResourceManagerTemplateDeployment@3
-  name: data_factory_deployment_validation
-  displayName: Deploy data factory
+  name: data_factory_deployment
+  displayName: Deploy data factory validation
   enabled: true
   continueOnError: false
   inputs:
@@ -41,14 +41,14 @@ steps:
     resourceGroupName: ${{ parameters.resourceGroupName}}
     location: ${{ parameters.location}}
     templateLocation: 'Linked artifact'
-    csmFile: 'vinayaksidnal/cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.json'
+    csmFile: '1_infrastructure/arm-templates/adf/azuredeploy.json'
     deploymentMode: 'Validation'
 
 # Increment ARM Template
 - task: AzureResourceManagerTemplateDeployment@3
   name: data_factory_deployment
-  displayName: Deploy data factory
-  enabled: false
+  displayName: Deploy data factory deployment
+  enabled: true
   continueOnError: false
   inputs:
     deploymentScope: 'Resource Group'
@@ -58,6 +58,6 @@ steps:
     resourceGroupName: ${{ parameters.resourceGroupName}}
     location: ${{ parameters.location}}
     templateLocation: 'Linked artifact'
-    csmFile: 'vinayaksidnal/cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.json'
+    csmFile: '1_infrastructure/arm-templates/adf/azuredeploy.json'
     deploymentMode: 'Incremental'
   
