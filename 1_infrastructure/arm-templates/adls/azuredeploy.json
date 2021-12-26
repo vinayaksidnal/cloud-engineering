@@ -1,0 +1,92 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "defaultValue" : "[concat(replace(toLower(resourceGroup().name),'-',''),'-adls')]",
+            "type": "String",
+            "metadata" : {
+                "description" : "Specified name of the storage account"
+            }
+        },
+        "location": {
+            "defaultValue": "[resourceGroup().location]",
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the Azure location for resource."
+            }
+        },        
+        "storageAccountType": {
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_RAGRS",
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_ZRS",
+                "Standard_GZRS",
+                "Standard_RAGZRS"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the tier for service."
+            }
+        },
+        "kind": {
+            "defaultValue": "StorageV2",
+            "allowedValues": [
+                "StorageV2",
+                "BlobStorage"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the tier for service."
+            }
+        },
+        "accessTier": {
+            "defaultValue": "Hot",
+            "allowedValues": [
+                "Hot",
+                "Cool"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the tier for service."
+            }
+        },
+        "supportsHttpsTrafficOnly": {
+            "defaultValue": true,
+            "type": "bool",
+            "metadata": {
+                "description": "Specifies the tier for service."
+            }
+        },
+        "isHnsEnabled": {
+            "defaultValue": true,
+            "type": "bool",
+            "metadata": {
+                "description": "Specifies the value to distinguish adls gen 2 when set true."
+            }
+        }
+    },
+    "resources": [
+        {
+            "name": "[parameters('storageAccountName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "allowBlobPublicAccess": false,
+                "accessTier": "[parameters('accessTier')]",
+                "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]",
+                "isHnsEnabled": "[parameters('isHnsEnabled')]"
+            },
+            "dependsOn": [],
+            "sku": {
+                "name": "[parameters('storageAccountType')]"
+            },
+            "kind": "[parameters('kind')]",
+            "tags": {}
+        }
+    ],
+    "outputs": {}
+}

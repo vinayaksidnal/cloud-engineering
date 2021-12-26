@@ -1,0 +1,98 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "defaultValue": "[concat(replace(toLower(resourceGroup().name),'-',''),'-kvlt')]",
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the name of the key vault."
+            }
+        },
+        "location": {
+            "defaultValue": "[resourceGroup().location]",
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the Azure location where the key vault should be created."
+            }
+        },
+        "enabledForDeployment": {
+            "defaultValue": true,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "type": "Bool",
+            "metadata": {
+                "description": "Specifies whether Azure Virtual Machines are permitted to retrieve certificates stored as secrets from the key vault."
+            }
+        },
+        "enabledForDiskEncryption": {
+            "defaultValue": true,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "type": "Bool",
+            "metadata": {
+                "description": "Specifies whether Azure Disk Encryption is permitted to retrieve secrets from the vault and unwrap keys."
+            }
+        },
+        "enabledForTemplateDeployment": {
+            "defaultValue": true,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "type": "Bool",
+            "metadata": {
+                "description": "Specifies whether Azure Resource Manager is permitted to retrieve secrets from the key vault."
+            }
+        },
+        "tenantId": {
+            "defaultValue": "[subscription().tenantId]",
+            "type": "String",
+            "metadata": {
+                "description": "Specifies the Azure Active Directory tenant ID that should be used for authenticating requests to the key vault. Get it by using Get-AzSubscription cmdlet."
+            }
+        },
+        "accessPolicies": {
+            "defaultValue": { "list": [] },
+            "type": "object"
+        },
+        "skuName": {
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "Premium"
+            ],
+            "type": "String",
+            "metadata": {
+                "description": "Specifies whether the key vault is a standard vault or a premium vault."
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2018-02-14",
+            "name": "[parameters('keyVaultName')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "enabledForDeployment": "[parameters('enabledForDeployment')]",
+                "enabledForDiskEncryption": "[parameters('enabledForDiskEncryption')]",
+                "enabledForTemplateDeployment": "[parameters('enabledForTemplateDeployment')]",
+                "tenantId": "[parameters('tenantId')]",
+                "accessPolicies": "[parameters('accessPolicies').list]",
+                "sku": {
+                    "name": "[parameters('skuName')]",
+                    "family": "A"
+                },
+                "networkAcls": {
+                    "defaultAction": "Allow",
+                    "bypass": "AzureServices"
+                }
+            }
+        }
+    ]
+}
