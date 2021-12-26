@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName": {
-            "defaultValue" : "[concat(replace(toLower(resourceGroup().name),'-',''),'-adls')]",
+            "defaultValue" : "[concat(replace(toLower(resourceGroup().name),'-',''),'adls')]",
             "type": "String",
             "metadata" : {
                 "description" : "Specified name of the storage account"
