@@ -41,8 +41,8 @@ steps:
     resourceGroupName: ${{ parameters.resourceGroupName}}
     location: ${{ parameters.location}}
     templateLocation: 'Linked artifact'
-    csmFile: 'cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.json'
-    csmParametersFile: 'cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.parameters.json'
+    csmFile: ../../../../1_infrastructure/arm-templates/adf/azuredeploy.json
+    csmParametersFile: ../../../../1_infrastructure/arm-templates/adf/azuredeploy.parameters.json
     deploymentMode: 'Validation'
     overrideParameters: >
       -location "${{ parameters.location}}"
@@ -62,8 +62,8 @@ steps:
     resourceGroupName: ${{ parameters.resourceGroupName}}
     location: ${{ parameters.location}}
     templateLocation: 'Linked artifact'
-    csmFile: 'cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.json'
-    csmParametersFile: 'cloud-engineering/1_infrastructure/arm-templates/adf/azuredeploy.parameters.json'
+    csmFile: ./../../../1_infrastructure/arm-templates/adf/azuredeploy.json
+    csmParametersFile: ../../../../1_infrastructure/arm-templates/adf/azuredeploy.parameters.json
     deploymentMode: 'Incremental'
     overrideParameters: >
       -location "${{ parameters.location}}"
