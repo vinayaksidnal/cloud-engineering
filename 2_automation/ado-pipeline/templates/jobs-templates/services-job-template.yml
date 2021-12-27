@@ -35,15 +35,22 @@ jobs:
       subscriptionId: ${{ parameters.subscriptionId }}
       resourceGroupName: ${{ parameters.resourceGroupName}}
       location: ${{ parameters.location }}
-  # 1. Key vault Service Deployment.
+  # 3. Key vault Service Deployment.
   - template: ../steps-templates/kvlt-step-template.yml
     parameters:
       azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection }}
       subscriptionId: ${{ parameters.subscriptionId }}
       resourceGroupName: ${{ parameters.resourceGroupName}}
       location: ${{ parameters.location }}
-  # 1. Vnet Service Deployment.
+  # 4. Vnet Service Deployment.
   - template: ../steps-templates/vnet-step-template.yml
+    parameters:
+      azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection }}
+      subscriptionId: ${{ parameters.subscriptionId }}
+      resourceGroupName: ${{ parameters.resourceGroupName}}
+      location: ${{ parameters.location }}
+  # 5. Funcapp Service Deployment.
+  - template: ../steps-templates/funcapp-step-template.yml
     parameters:
       azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection }}
       subscriptionId: ${{ parameters.subscriptionId }}
