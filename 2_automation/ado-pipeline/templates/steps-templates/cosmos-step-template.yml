@@ -1,4 +1,4 @@
-# Template for validating and incrementing a dbx ARM template.
+# Template for validating and incrementing a cosmos ARM template.
 
 parameters:
   - name: 'azureResourceManagerConnection'
@@ -25,8 +25,8 @@ parameters:
 steps:        
 # Validate ARM Template
 - task: AzureResourceManagerTemplateDeployment@3
-  name: databricks_deployment_validation
-  displayName: Deploy databricks validation
+  name: cosmos_deployment_validation
+  displayName: Deploy cosmos validation
   enabled: true
   continueOnError: false
   inputs:
@@ -37,13 +37,13 @@ steps:
     resourceGroupName: ${{ parameters.resourceGroupName}}
     location: ${{ parameters.location}}
     templateLocation: 'Linked artifact'
-    csmFile: '1_infrastructure/arm-templates/dbx/azuredeploy.json'
+    csmFile: '1_infrastructure/arm-templates/cosmos/azuredeploy.json'
     deploymentMode: 'Validation'
 
 # Increment ARM Template
 - task: AzureResourceManagerTemplateDeployment@3
-  name: databricks_deployment_deployment
-  displayName: Deploy databricks deployment
+  name: cosmos_deployment_deployment
+  displayName: Deploy cosmos deployment
   enabled: true
   continueOnError: false
   inputs:
@@ -54,6 +54,6 @@ steps:
     resourceGroupName: ${{ parameters.resourceGroupName}}
     location: ${{ parameters.location}}
     templateLocation: 'Linked artifact'
-    csmFile: '1_infrastructure/arm-templates/dbx/azuredeploy.json'
+    csmFile: '1_infrastructure/arm-templates/cosmos/azuredeploy.json'
     deploymentMode: 'Incremental'
   

@@ -63,3 +63,10 @@ jobs:
       subscriptionId: ${{ parameters.subscriptionId }}
       resourceGroupName: ${{ parameters.resourceGroupName}}
       location: ${{ parameters.location }}
+  # 7. Cosmos Service Deployment.
+  - template: ../steps-templates/cosmos-step-template.yml
+    parameters:
+      azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection }}
+      subscriptionId: ${{ parameters.subscriptionId }}
+      resourceGroupName: ${{ parameters.resourceGroupName}}
+      location: ${{ parameters.location }}
