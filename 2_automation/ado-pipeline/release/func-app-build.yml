@@ -17,10 +17,10 @@ steps:
   inputs:
     rootFolderOrFile: "$(System.DefaultWorkingDirectory)/3_coding"
     includeRootFolder: false
-    archiveFile: "$(System.ArtifactStagingDirectory)/build$(Build.BuildId).zip"
+    archiveFile: "$(System.ArtifactsDirectory)/build$(Build.BuildId).zip"
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.ArtifactStagingDirectory)/build$(Build.BuildId).zip'
+    PathtoPublish: '$(System.ArtifactsDirectory)/build$(Build.BuildId).zip'
     artifactName: 'drop'
 
 - task: AzureFunctionApp@1 
