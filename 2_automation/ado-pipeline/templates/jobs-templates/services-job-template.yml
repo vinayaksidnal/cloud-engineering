@@ -56,3 +56,10 @@ jobs:
       subscriptionId: ${{ parameters.subscriptionId }}
       resourceGroupName: ${{ parameters.resourceGroupName}}
       location: ${{ parameters.location }}
+  # 6. Databricks workspace Service Deployment.
+  - template: ../steps-templates/dbx-step-template.yml
+    parameters:
+      azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection }}
+      subscriptionId: ${{ parameters.subscriptionId }}
+      resourceGroupName: ${{ parameters.resourceGroupName}}
+      location: ${{ parameters.location }}

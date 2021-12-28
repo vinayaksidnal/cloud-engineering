@@ -1,0 +1,63 @@
+# Template for validating and incrementing a dbx ARM template.
+
+parameters:
+  - name: 'azureResourceManagerConnection'
+    displayName: 'The ADO Service Connection to use.'
+    type: string
+    default: ''
+  - name: 'subscriptionId'
+    displayName: 'The subscription ID to use.'
+    type: string
+    default: ''
+  - name: 'location'
+    displayName: 'The azure region to deploy resources to.'
+    type: string
+    default: ''
+  - name: 'resourceGroupName'
+    displayName: 'The name of the Resource Group to deploy to.'
+    type: string
+    default: ''
+  - name: 'overrideParameters'
+    displayName: 'sharedResourceGroupName'
+    type: string
+    default: ''
+  - name: 'dataFactoryName'
+    displayName: 'The name of the Datafactory to deploy to.'
+    type: string
+    default: ''
+
+steps:        
+# Validate ARM Template
+- task: AzureResourceManagerTemplateDeployment@3
+  name: databricks_deployment_validation
+  displayName: Deploy databricks validation
+  enabled: true
+  continueOnError: false
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection}}
+    subscriptionId: ${{ parameters.subscriptionId}}
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: ${{ parameters.resourceGroupName}}
+    location: ${{ parameters.location}}
+    templateLocation: 'Linked artifact'
+    csmFile: '1_infrastructure/arm-templates/dbx/azuredeploy.json'
+    deploymentMode: 'Validation'
+
+# Increment ARM Template
+- task: AzureResourceManagerTemplateDeployment@3
+  name: databricks_deployment_deployment
+  displayName: Deploy databricks deployment
+  enabled: true
+  continueOnError: false
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: ${{ parameters.azureResourceManagerConnection}}
+    subscriptionId: ${{ parameters.subscriptionId}}
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: ${{ parameters.resourceGroupName}}
+    location: ${{ parameters.location}}
+    templateLocation: 'Linked artifact'
+    csmFile: '1_infrastructure/arm-templates/dbx/azuredeploy.json'
+    deploymentMode: 'Incremental'
+  
