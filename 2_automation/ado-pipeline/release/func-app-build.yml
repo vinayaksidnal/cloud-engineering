@@ -11,7 +11,12 @@ steps:
     versionSpec: '3.7'
     architecture: 'x64'
 - bash: |
-    pip install --target="./.python_packages/lib/site-packages" -r ./3_coding/requirements.txt
+    cd 3_coding
+    python3.7 -m venv worker_venv
+    source worker_venv/bin/activate
+    pip install setuptools
+    pip install -r requirements.txt
+    # pip install --target="./.python_packages/lib/site-packages" -r ./3_coding/requirements.txt
 - task: ArchiveFiles@2
   displayName: "Archive files"
   inputs:
