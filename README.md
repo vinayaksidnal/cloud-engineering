@@ -18,7 +18,12 @@ The 2_automation folder in this repo contains 2 main sub folders
 * templates
 
 1. Release: This folder contains build and release YAML pipelines
+    
+    * infra-deployment.yml : All azure services deployment pipeline.
+    * func-app-build.yml  : This pipeline deploys the function app.
+
 2. templates: This folder again contains following sub folders:
+    
     * jobs-templates
     * steps-templates
 
@@ -30,7 +35,37 @@ The 2_automation folder in this repo contains 2 main sub folders
 ## API 
 
 The sample API is an azure function app. This service is hosted on consumtion plan. 
-This function app is a HTTP based api which fetches record from an azure cosmos database.
+This function app is a HTTP based api which fetches record from an azure cosmos database.#
+
+This HTTP based api accepts the source as query string parameter and return the comment/review received from the source. 
+
+sample cosmos records/items
+
+```json
+{
+    "id": "1",
+    "source": "earth",
+    "comment": "This is best place to live",
+    "_rid": "Kb06ALjSKf8BAAAAAAAAAA==",
+    "_self": "dbs/Kb06AA==/colls/Kb06ALjSKf8=/docs/Kb06ALjSKf8BAAAAAAAAAA==/",
+    "_etag": "\"0100c528-0000-0c00-0000-61c9bb3d0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1640610621
+}
+
+{
+    "id": "2",
+    "source": "mars",
+    "comment": "This is not a best place to live yet",
+    "_rid": "Kb06ALjSKf8CAAAAAAAAAA==",
+    "_self": "dbs/Kb06AA==/colls/Kb06ALjSKf8=/docs/Kb06ALjSKf8CAAAAAAAAAA==/",
+    "_etag": "\"0100d728-0000-0c00-0000-61c9bb6b0000\"",
+    "_attachments": "attachments/",
+    "_ts": 1640610667
+}
+```
+
+
 
 
 
