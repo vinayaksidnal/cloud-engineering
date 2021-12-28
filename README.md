@@ -6,6 +6,7 @@ Infrastructure as a Code automation repo
 Azure infrastructure services are created using the ARM templates.
 1_infrastructure folder contains the arm templates for the azure services. The templates can be updated as per the service configurations. 
 
+![plot](./1_infrastructure/infra.png)
 
 
 ## Automation
