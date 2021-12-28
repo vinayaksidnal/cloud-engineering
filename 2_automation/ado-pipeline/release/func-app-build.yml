@@ -1,3 +1,6 @@
+# function app deployment
+trigger: none
+
 pool:
   vmImage: ubuntu-latest
 
@@ -21,7 +24,7 @@ steps:
   displayName: "Archive files"
   inputs:
     rootFolderOrFile: "$(System.DefaultWorkingDirectory)/3_coding"
-    includeRootFolder: true
+    includeRootFolder: false
     archiveFile: "$(System.ArtifactsDirectory)/build$(Build.BuildId).zip"
 - task: PublishBuildArtifacts@1
   inputs:

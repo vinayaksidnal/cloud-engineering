@@ -29,18 +29,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         )
         resList = list(results)
 
-        # respo = json.dumps(list(resList), indent=4)
-        
-        # print(comment)
-        
-        # name = req.params.get('name')
-        # if not name:
-        #     try:
-        #         req_body = req.get_json()
-        #     except ValueError:
-        #         pass
-        #     else:
-        #         name = req_body.get('name')
         return func.HttpResponse(resList[0]['comment'])
     
     else:
